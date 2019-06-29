@@ -1,42 +1,88 @@
-﻿<!DOCTYPE html>
+﻿@using CRUD_EF.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="author" content="Amanda Nascimento" />
+
+    <title>@ViewBag.Title - CRUD MVC Entity Framework</title>
     @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/img/favicon.ico" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+<body id="admin">
+
+    <header>
+        <h1>Dashboard</h1>
+
+        <div id="identificacao">
+
+            <a class="btn-perfil">
+                <i class="fa fa-user mr-10"></i>
+                @{ var nome = (HttpContext.Current.Session["usuarioLogado"] as CRUD_EF.Models.Usuario).Nome; } @nome
+            </a>
+
+            <a href="@Url.Action("Logout", "Usuarios")" class="btn-sair">
+                <i class="fa fa-power-off mr-10"></i> SAIR
+            </a>
+
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
+    </header>
+
+    <aside>
+        <ul id="menu">
+
+            <li>
+                <a href="@Url.Action("Dashboard", "Usuarios")" class="btn-aside-paginainicial">
+                    <i class="fa fa-home mr-15"></i> Página Inicial
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Lista", "Usuarios")" class="btn-aside-usuarios">
+                    <i class="fa fa-user mr-15"></i> Usuários
+                </a>
+            </li>
+
+        </ul>
+
+
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Amanda Nascimento</p>
         </footer>
+
+    </aside>
+
+    <div id="body">
+        @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/bundles/jquerydatatable")
+    @Scripts.Render("~/bundles/sweetalert")
+
+    <script>
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+    </script>
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

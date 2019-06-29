@@ -1,0 +1,89 @@
+﻿@model CRUD_EF.Models.Usuario
+
+@{
+    ViewBag.Title = "Usuário #" + Model.ID;
+    CRUD_EF.Models.Usuario usuariologado = HttpContext.Current.Session["UsuarioLogado"] as CRUD_EF.Models.Usuario;
+}
+
+<div id="conteudo">
+
+    <div class="col-md-12 topo">
+        <h1 class="col-md-8">Dados do usuário #@Model.ID</h1>
+        <div class="col-md-4 links">
+            @if (usuariologado.NivelAcesso == 1)
+            {
+                @Html.ActionLink("Editar", "Editar", new { id = Model.ID }, new { @class = "btn btn-warning mr-10" })
+                @Html.ActionLink("Excluir", "Excluir", new { id = Model.ID }, new { @class = "btn btn-danger" })
+            }
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="box">
+
+        <table class="table mb-0">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ID)
+                </td>
+                <td>
+                    #@Html.DisplayFor(model => model.ID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Nome)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.DataCadastro)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DataCadastro)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.NivelAcesso)
+                </td>
+                <td>
+                    @if (Model.NivelAcesso == 1)
+                    {
+                        @:Administrador
+                    }
+                    else if (Model.NivelAcesso == 2)
+                    {
+                        @:Comum
+                    }
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    @Html.ActionLink("Voltar para a Lista", "Lista", null, new { @class = "btn btn-primary" })
+
+
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".btn-aside-usuarios").addClass(" active");
+        });
+    </script>
+}

@@ -1,0 +1,89 @@
+﻿@model CRUD_EF.Models.Usuario
+
+@{
+    ViewBag.Title = "Excluir Usuário #" + Model.ID;
+}
+
+
+<div id="conteudo">
+
+    <div class="col-md-12 topo">
+        <h1 class="col-md-12">Tem certeza que deseja excluir o usuário #@Model.ID?</h1>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="box">
+
+        <table class="table mb-0">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ID)
+                </td>
+                <td>
+                    #@Html.DisplayFor(model => model.ID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Nome)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.DataCadastro)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DataCadastro)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.NivelAcesso)
+                </td>
+                <td>
+                    @if (Model.NivelAcesso == 1)
+                    {
+                        @:Administrador
+                    }
+                    else if (Model.NivelAcesso == 2)
+                    {
+                        @:Comum
+                    }
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger mr-10" />
+        @Html.ActionLink("Voltar para a Lista", "Lista", null, new { @class = "btn btn-primary" })
+    }
+
+
+
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".btn-aside-usuarios").addClass(" active");
+        });
+    </script>
+}

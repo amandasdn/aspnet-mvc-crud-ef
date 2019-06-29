@@ -1,0 +1,83 @@
+﻿@model CRUD_EF.Models.Usuario
+
+@{
+    ViewBag.Title = "Novo Usuário";
+}
+
+<div id="conteudo">
+
+    <div class="col-md-12 topo">
+        <h1 class="col-md-8">Novo Usuário</h1>
+    </div>
+
+    <div class="clearfix"></div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="box">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NivelAcesso, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*@Html.EditorFor(model => model.NivelAcesso, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @{
+                            List<SelectListItem> niveisAcesso = new List<SelectListItem>();
+                            niveisAcesso.Add(new SelectListItem() { Value = "", Text = "- Selecione -", Disabled = true, Selected = true });
+                            niveisAcesso.Add(new SelectListItem() { Value = "1", Text = "Administrador" });
+                            niveisAcesso.Add(new SelectListItem() { Value = "2", Text = "Comum" });
+                        }
+
+                        @Html.DropDownList("NivelAcesso", niveisAcesso, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NivelAcesso, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <input type="submit" value="Salvar" class="btn btn-success mr-15" />
+        @Html.ActionLink("Voltar para a Lista", "Lista", null, new { @class = "btn btn-primary" })
+
+    }
+
+</div>
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $(".btn-aside-usuarios").addClass(" active");
+        });
+    </script>
+}

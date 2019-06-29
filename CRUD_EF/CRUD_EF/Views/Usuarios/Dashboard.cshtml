@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="conteudo">
+
+    <div class="col-md-12 topo">
+        <h1 class="col-md-12">ASP.NET MVC 5 - CRUD com Entity Framework</h1>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="box">
+        <p>Este projeto possui o único intuito de praticar algumas ferramentas e tecnologias dentro do ASP.Net C#.</p>
+        <p><strong>Descrição:</strong> Painel administrativo simples com login de acesso e gerenciamento de usuários (CRUD), utilizando a estrutura MVC do ASP.NET com a ORM Entity Framework.</p>
+        <hr />
+        <p>Confira mais em: <a href="https://github.com/amandasdn" target="_blank">https://github.com/amandasdn</a></p>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".btn-aside-paginainicial").addClass(" active");
+
+            //swal("Olá!", "Seja bem-vindo ao painel administrativo.");
+        });
+    </script>
+}
